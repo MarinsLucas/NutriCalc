@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Tabela com JavaScript</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exemplo de Tabela com JavaScript</h1>
+    <table id="tabela">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Cidade</th>
+            </tr>
+        </thead>
+        <tbody id="corpo-tabela">
+            <!-- As linhas da tabela serão inseridas aqui -->
+        </tbody>
+    </table>
+
+    <script>
+        // Exemplo de dados
+        const pessoas = [
+            { nome: "João", idade: 25, cidade: "São Paulo" },
+            { nome: "Maria", idade: 30, cidade: "Rio de Janeiro" },
+            { nome: "Carlos", idade: 28, cidade: "Belo Horizonte" }
+        ];
+
+        // Seleciona o corpo da tabela onde as linhas serão inseridas
+        const corpoTabela = document.getElementById('corpo-tabela');
+
+        // Função para gerar a tabela
+        function gerarTabela(dados) {
+            dados.forEach(pessoa => {
+                const linha = document.createElement('tr');
+
+                const celulaNome = document.createElement('td');
+                celulaNome.textContent = pessoa.nome;
+                linha.appendChild(celulaNome);
+
+                const celulaIdade = document.createElement('td');
+                celulaIdade.textContent = pessoa.idade;
+                linha.appendChild(celulaIdade);
+
+                const celulaCidade = document.createElement('td');
+                celulaCidade.textContent = pessoa.cidade;
+                linha.appendChild(celulaCidade);
+
+                // Adiciona a linha criada ao corpo da tabela
+                corpoTabela.appendChild(linha);
+            });
+        }
+
+        // Chama a função para gerar a tabela com os dados do array
+        gerarTabela(pessoas);
+    </script>
+</body>
+</html>
