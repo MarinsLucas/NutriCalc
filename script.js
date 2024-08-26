@@ -58,7 +58,7 @@ function addSelectedItem(name, ID) {
     const selectedItemsContainer = document.getElementById('selected-items');
     const itemDiv = document.createElement('div');
     itemDiv.className = 'selected-item';
-
+    
     // Cria o span para o nome
     const nameSpan = document.createElement('span');
     nameSpan.textContent = name;
@@ -88,7 +88,6 @@ function addSelectedItem(name, ID) {
     removeButton.textContent = 'x';
     removeButton.addEventListener('click', function() {
         selectedItemsContainer.removeChild(itemDiv);
-    
         alim_receita = alim_receita.filter(item => {
             
             const itemName = item["name"]; // Remove espaços em branco
@@ -96,9 +95,11 @@ function addSelectedItem(name, ID) {
             const isMatch = itemName.toString() === name.toString() && itemID.toString() === ID.toString();
             return !isMatch; 
         });
+        createNutrientsTable(alim_receita)
+
     });
     
-
+    
     // Adiciona o nome, o campo de entrada e o botão ao item
     itemDiv.appendChild(nameSpan);
     itemDiv.appendChild(inputField);
@@ -113,12 +114,14 @@ function addSelectedItem(name, ID) {
         unidade: unidmedidas[0]
     };
     alim_receita.push(itemObj);
+    create_table(alim_receita);
 
     // Atualiza quantidade e unidade ao alterar os campos
     inputField.addEventListener('input', function() {
         const item = alim_receita.find(item => item.ID === ID);
         item.quantidade = parseFloat(this.value);
         console.log(alim_receita);
+        create_table(alim_receita);
     });
 
     dropdown.addEventListener('change', function() {
@@ -129,11 +132,51 @@ function addSelectedItem(name, ID) {
     });
 }
 
+function calcRatio100g(ing)
+{
+    let quant = ing.quantidade;
+
+    switch(ing.unidade)
+    {
+        case "mililitros (ml)":
+            quant = quant*1;
+            break;
+        case "litros(l)":
+            quant = quant*1000;
+            break;
+        case "xícaras":
+            quant = quant*240
+            break;
+        case "colheres de sopa":
+            quant = quant*13;
+            break;
+        case "colheres de chá":
+            quant = quant*2;
+            break;
+        case "colheres de sobremesa":
+            quant = quant*5;
+            break;
+        case "gramas (g)":
+            quant = quant*1;
+            break;
+        case "quilos (kg)":
+            quant = quant*1000;
+            break;
+        case "miligramas (mg)":
+            quant = quant*0.001;
+            break;
+        case "pitadas":
+            quant = quant*0.5;
+            break;
+    }
+
+    return quant/100.0;
+}
+
 function create_table(alim_receita)
 {
     const nutrients = {
-        kcal: 0,
-        kJ: 0,
+        energia: 0,
         proteinas: 0,
         lipidios: 0,
         colesterol: 0,
@@ -157,32 +200,31 @@ function create_table(alim_receita)
     {
         const query = alim_receita[i].ID;
         
+        const r100 = calcRatio100g(alim_receita[i]);
         
         //Levanta todos os itens compatíveis com a busca
         const alim = alimentos.filter(alimento => alimento.ID === query)
         
         if (alim) {
             console.log(alim); 
-            nutrients.kcal += parseFloat(alim[0]["kcal"]) || 0;
-            nutrients.kJ += parseFloat(alim[0]["kJ"])  || 0;
-            nutrients.proteinas += parseFloat(alim[0]["proteina"])  || 0;
-            nutrients.lipidios += parseFloat(alim[0]["lipideos"])  || 0;
-            nutrients.colesterol += parseFloat(alim[0]["colesterol"])  || 0;
-            nutrients.carboidrato += parseFloat(alim[0]["carboidrato"])  || 0;
-            nutrients.fibra += parseFloat(alim[0]["fibra"]) || 0;
-            nutrients.calcio += parseFloat(alim[0]["calcio"])  || 0;
-            nutrients.magnesio += parseFloat(alim[0]["magnesio"])  || 0;
-            nutrients.manganes += parseFloat(alim[0]["manganes"])  || 0;
-            nutrients.fosforo += parseFloat(alim[0]["fosforo"])  || 0;
-            nutrients.ferro += parseFloat(alim[0]["ferro"])  || 0;
-            nutrients.sodio += parseFloat(alim[0]["sodio"])  || 0;
-            nutrients.potassio += parseFloat(alim[0]["potassio"]) || 0 ;
-            nutrients.cobre += parseFloat(alim[0]["Cobre"])  || 0;
-            nutrients.zinco += parseFloat(alim[0]["Zinco"]) || 0;
-            nutrients.saturadas += parseFloat(alim[0]["Saturados"]) || 0 ;
-            nutrients.monoinsaturados += parseFloat(alim[0]["Monoinsaturados"]) || 0;
-            nutrients.polinsaturados += parseFloat(alim[0]["Poliinsaturados"]) || 0;
-            console.log(alim[0].kcal);
+            nutrients.energia += parseFloat(alim[0]["kcal"])*r100 || 0;
+            nutrients.proteinas += parseFloat(alim[0]["proteina"])*r100  || 0;
+            nutrients.lipidios += parseFloat(alim[0]["lipideos"])*r100  || 0;
+            nutrients.colesterol += parseFloat(alim[0]["colesterol"]) *r100 || 0;
+            nutrients.carboidrato += parseFloat(alim[0]["carboidrato"])*r100  || 0;
+            nutrients.fibra += parseFloat(alim[0]["fibra"])*r100|| 0;
+            nutrients.calcio += parseFloat(alim[0]["calcio"]) *r100 || 0;
+            nutrients.magnesio += parseFloat(alim[0]["magnesio"]) *r100 || 0;
+            nutrients.manganes += parseFloat(alim[0]["manganes"]) *r100 || 0;
+            nutrients.fosforo += parseFloat(alim[0]["fosforo"]) *r100 || 0;
+            nutrients.ferro += parseFloat(alim[0]["ferro"]) *r100 || 0;
+            nutrients.sodio += parseFloat(alim[0]["sodio"]) *r100 || 0;
+            nutrients.potassio += parseFloat(alim[0]["potassio"])*r100 || 0 ;
+            nutrients.cobre += parseFloat(alim[0]["Cobre"]) *r100|| 0;
+            nutrients.zinco += parseFloat(alim[0]["Zinco"]) *r100|| 0;
+            nutrients.saturadas += parseFloat(alim[0]["Saturados"])*r100 || 0 ;
+            nutrients.monoinsaturados += parseFloat(alim[0]["Monoinsaturados"])*r100 || 0;
+            nutrients.polinsaturados += parseFloat(alim[0]["Poliinsaturados"])*r100 || 0;
         } else {
             console.error(`Alimento com ID ${query} não encontrado.`);
         }
@@ -213,6 +255,11 @@ function createNutrientsTable(nutrients) {
         headerName.textContent = 'Nutriente';
         headerRow.appendChild(headerName);
 
+        const unid = document.createElement('th');
+        unid.textContent = 'Un. Medida';
+        headerRow.appendChild(unid);
+
+
         const headerValue = document.createElement('th');
         headerValue.textContent = 'Valor';
         headerRow.appendChild(headerValue);
@@ -233,7 +280,8 @@ function createNutrientsTable(nutrients) {
     // Atualiza o corpo da tabela
     const tbody = document.getElementById('nutrients-tbody');
     tbody.innerHTML = ''; // Limpa o conteúdo anterior
-
+    const umedidas = ["kcal", "g", "g", "mg", "g", "g", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "g", "g", "g"]
+    let i = 0;
     // Adiciona uma linha para cada nutriente
     for (const [key, value] of Object.entries(nutrients)) {
         const row = document.createElement('tr');
@@ -241,6 +289,11 @@ function createNutrientsTable(nutrients) {
         const cellName = document.createElement('td');
         cellName.textContent = key;
         row.appendChild(cellName);
+
+        const cellUMedida = document.createElement('td');
+        cellUMedida.textContent = umedidas[i];
+        row.appendChild(cellUMedida);
+        i = i+1;
 
         const cellValue = document.createElement('td');
         cellValue.textContent = value;
