@@ -190,4 +190,26 @@ function create_table(alim_receita)
     }
 
     console.log(nutrients);
+    
+}
+
+function gerarTabela(dados) {
+    dados.forEach(pessoa => {
+        const linha = document.createElement('tr');
+
+        const celulaNome = document.createElement('td');
+        celulaNome.textContent = pessoa.nome;
+        linha.appendChild(celulaNome);
+
+        const celulaIdade = document.createElement('td');
+        celulaIdade.textContent = pessoa.idade;
+        linha.appendChild(celulaIdade);
+
+        const celulaCidade = document.createElement('td');
+        celulaCidade.textContent = pessoa.cidade;
+        linha.appendChild(celulaCidade);
+
+        // Adiciona a linha criada ao corpo da tabela
+        corpoTabela.appendChild(linha);
+    });
 }
