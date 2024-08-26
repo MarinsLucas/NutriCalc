@@ -190,26 +190,63 @@ function create_table(alim_receita)
     }
 
     console.log(nutrients);
+    createNutrientsTable(nutrients)
     
 }
 
-function gerarTabela(dados) {
-    dados.forEach(pessoa => {
-        const linha = document.createElement('tr');
+function createNutrientsTable(nutrients) {
+    let table = document.getElementById('nutrients-table');
+    
+    // Se a tabela não existir, crie uma nova
+    if (!table) {
+        table = document.createElement('table');
+        table.id = 'nutrients-table';
+        table.border = "1";
+        table.style.borderCollapse = "collapse";
+        table.style.width = "100%";
 
-        const celulaNome = document.createElement('td');
-        celulaNome.textContent = pessoa.nome;
-        linha.appendChild(celulaNome);
+        // Cria o cabeçalho da tabela
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
 
-        const celulaIdade = document.createElement('td');
-        celulaIdade.textContent = pessoa.idade;
-        linha.appendChild(celulaIdade);
+        const headerName = document.createElement('th');
+        headerName.textContent = 'Nutriente';
+        headerRow.appendChild(headerName);
 
-        const celulaCidade = document.createElement('td');
-        celulaCidade.textContent = pessoa.cidade;
-        linha.appendChild(celulaCidade);
+        const headerValue = document.createElement('th');
+        headerValue.textContent = 'Valor';
+        headerRow.appendChild(headerValue);
 
-        // Adiciona a linha criada ao corpo da tabela
-        corpoTabela.appendChild(linha);
-    });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Cria o corpo da tabela
+        const tbody = document.createElement('tbody');
+        tbody.id = 'nutrients-tbody';
+        table.appendChild(tbody);
+
+        // Insere a tabela no contêiner
+        const container = document.getElementById('nutrients-table-container');
+        container.appendChild(table);
+    }
+
+    // Atualiza o corpo da tabela
+    const tbody = document.getElementById('nutrients-tbody');
+    tbody.innerHTML = ''; // Limpa o conteúdo anterior
+
+    // Adiciona uma linha para cada nutriente
+    for (const [key, value] of Object.entries(nutrients)) {
+        const row = document.createElement('tr');
+
+        const cellName = document.createElement('td');
+        cellName.textContent = key;
+        row.appendChild(cellName);
+
+        const cellValue = document.createElement('td');
+        cellValue.textContent = value;
+        row.appendChild(cellValue);
+
+        tbody.appendChild(row);
+    }
 }
+
