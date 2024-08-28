@@ -134,67 +134,81 @@ function addSelectedItem(name, ID) {
 
 function calcRatio100g(ing)
 {
-    let quant = ing.quantidade;
+    let quant_min = ing.quantidade;
+    let quant_max = quant_min;
 
     switch(ing.unidade)
     {
         case "mililitros (ml)":
-            quant = quant*1;
+            quant_min = quant_min*1;
+            quant_max = quant_min;
             break;
         case "litros(l)":
-            quant = quant*1000;
+            quant_min = quant_min*1000;
+            quant_max = quant_min;
             break;
         case "xícaras":
-            quant = quant*240
-            break;
-        case "colheres de sopa":
-            quant = quant*13;
-            break;
-        case "colheres de chá":
-            quant = quant*2;
-            break;
-        case "colheres de sobremesa":
-            quant = quant*5;
+            quant_min = quant_min*120
+            quant_max = quant_max*240;
             break;
         case "gramas (g)":
-            quant = quant*1;
+            quant_min = quant_min*1;
+            quant_max = quant_min;
             break;
         case "quilos (kg)":
-            quant = quant*1000;
+            quant_min = quant_min*1000;
+            quant_max = quant_min;
             break;
         case "miligramas (mg)":
-            quant = quant*0.001;
+            quant_min = quant_min*0.001;
+            quant_max = quant_min;
             break;
+
+        //A partir daqui, pode haver máximo e mínimo
         case "pitadas":
-            quant = quant*0.5;
+            quant_min = quant_min*0,3;
+            quant_max = quant_max*1.5;
+            break;
+        case "colheres de sopa":
+            quant_min = quant_min*10;
+            quant_max = quant_max*15;
+            break;
+        case "colheres de chá": 
+            quant_min = quant_min*2;
+            quant_max = quant_max*7;
+            break;
+        case "colheres de sobremesa":
+            quant_min = quant_min*5;
+            quant_max = quant_max*14;
             break;
     }
 
-    return quant/100.0;
+    return [quant_min/100.0, quant_max/100.0];
 }
 
 function create_table(alim_receita)
 {
     const nutrients = {
-        energia: 0,
-        proteinas: 0,
-        lipidios: 0,
-        colesterol: 0,
-        carboidrato: 0,
-        fibra : 0,
-        calcio: 0,
-        magnesio: 0,
-        manganes: 0,
-        fosforo: 0,
-        ferro: 0,
-        sodio: 0,
-        potassio: 0,
-        cobre: 0,
-        zinco: 0,
-        saturadas: 0,
-        monoinsaturados: 0, 
-        polinsaturados:0
-    }   
+        energia: [0, 0],
+        proteinas: [0, 0],
+        lipidios: [0, 0],
+        colesterol: [0, 0],
+        carboidrato: [0, 0],
+        fibra: [0, 0],
+        calcio: [0, 0],
+        magnesio: [0, 0],
+        manganes: [0, 0],
+        fosforo: [0, 0],
+        ferro: [0, 0],
+        sodio: [0, 0],
+        potassio: [0, 0],
+        cobre: [0, 0],
+        zinco: [0, 0],
+        saturadas: [0, 0],
+        monoinsaturados: [0, 0], 
+        polinsaturados: [0, 0]
+    };
+    
 
     for(let i=0; i<alim_receita.length; i++)
     {
@@ -206,25 +220,28 @@ function create_table(alim_receita)
         const alim = alimentos.filter(alimento => alimento.ID === query)
         
         if (alim) {
-            console.log(alim); 
-            nutrients.energia += parseFloat(alim[0]["kcal"])*r100 || 0;
-            nutrients.proteinas += parseFloat(alim[0]["proteina"])*r100  || 0;
-            nutrients.lipidios += parseFloat(alim[0]["lipideos"])*r100  || 0;
-            nutrients.colesterol += parseFloat(alim[0]["colesterol"]) *r100 || 0;
-            nutrients.carboidrato += parseFloat(alim[0]["carboidrato"])*r100  || 0;
-            nutrients.fibra += parseFloat(alim[0]["fibra"])*r100|| 0;
-            nutrients.calcio += parseFloat(alim[0]["calcio"]) *r100 || 0;
-            nutrients.magnesio += parseFloat(alim[0]["magnesio"]) *r100 || 0;
-            nutrients.manganes += parseFloat(alim[0]["manganes"]) *r100 || 0;
-            nutrients.fosforo += parseFloat(alim[0]["fosforo"]) *r100 || 0;
-            nutrients.ferro += parseFloat(alim[0]["ferro"]) *r100 || 0;
-            nutrients.sodio += parseFloat(alim[0]["sodio"]) *r100 || 0;
-            nutrients.potassio += parseFloat(alim[0]["potassio"])*r100 || 0 ;
-            nutrients.cobre += parseFloat(alim[0]["Cobre"]) *r100|| 0;
-            nutrients.zinco += parseFloat(alim[0]["Zinco"]) *r100|| 0;
-            nutrients.saturadas += parseFloat(alim[0]["Saturados"])*r100 || 0 ;
-            nutrients.monoinsaturados += parseFloat(alim[0]["Monoinsaturados"])*r100 || 0;
-            nutrients.polinsaturados += parseFloat(alim[0]["Poliinsaturados"])*r100 || 0;
+            for(let i =0;i<2;i++)
+            {
+                console.log(alim); 
+                nutrients.energia[i] += parseFloat(alim[0]["kcal"])*r100[i] || 0;
+                nutrients.proteinas[i] += parseFloat(alim[0]["proteina"])*r100[i]  || 0;
+                nutrients.lipidios[i] += parseFloat(alim[0]["lipideos"])*r100[i]  || 0;
+                nutrients.colesterol[i] += parseFloat(alim[0]["colesterol"]) *r100[i] || 0;
+                nutrients.carboidrato[i] += parseFloat(alim[0]["carboidrato"])*r100[i]  || 0;
+                nutrients.fibra[i] += parseFloat(alim[0]["fibra"])*r100[i]|| 0;
+                nutrients.calcio[i] += parseFloat(alim[0]["calcio"]) *r100[i] || 0;
+                nutrients.magnesio[i] += parseFloat(alim[0]["magnesio"]) *r100[i] || 0;
+                nutrients.manganes[i] += parseFloat(alim[0]["manganes"]) *r100[i] || 0;
+                nutrients.fosforo[i] += parseFloat(alim[0]["fosforo"]) *r100[i] || 0;
+                nutrients.ferro[i] += parseFloat(alim[0]["ferro"]) *r100[i] || 0;
+                nutrients.sodio[i] += parseFloat(alim[0]["sodio"]) *r100[i] || 0;
+                nutrients.potassio[i] += parseFloat(alim[0]["potassio"])*r100[i] || 0 ;
+                nutrients.cobre[i] += parseFloat(alim[0]["Cobre"]) *r100[i]|| 0;
+                nutrients.zinco[i] += parseFloat(alim[0]["Zinco"]) *r100[i]|| 0;
+                nutrients.saturadas[i] += parseFloat(alim[0]["Saturados"])*r100[i] || 0 ;
+                nutrients.monoinsaturados[i] += parseFloat(alim[0]["Monoinsaturados"])*r100[i] || 0;
+                nutrients.polinsaturados[i] += parseFloat(alim[0]["Poliinsaturados"])*r100[i] || 0;
+            }
         } else {
             console.error(`Alimento com ID ${query} não encontrado.`);
         }
@@ -265,8 +282,12 @@ function createNutrientsTable(nutrients) {
         headerRow.appendChild(unid);
 
         const headerValue = document.createElement('th');
-        headerValue.textContent = 'Valor';
+        headerValue.textContent = 'Valor (min)';
         headerRow.appendChild(headerValue);
+
+        const headerValueMax = document.createElement('th');
+        headerValueMax.textContent = 'Valor (max)';
+        headerRow.appendChild(headerValueMax);
 
         thead.appendChild(headerRow);
         table.appendChild(thead);
@@ -303,8 +324,13 @@ function createNutrientsTable(nutrients) {
 
         const cellValue = document.createElement('td');
         // Formata o valor para duas casas decimais
-        cellValue.textContent = parseFloat(value).toFixed(2);
+        cellValue.textContent = parseFloat(value[0]).toFixed(2);
         row.appendChild(cellValue);
+
+        const cellValueMax = document.createElement('td');
+        // Formata o valor para duas casas decimais
+        cellValueMax.textContent = parseFloat(value[1]).toFixed(2);
+        row.appendChild(cellValueMax);
 
         tbody.appendChild(row);
     }
