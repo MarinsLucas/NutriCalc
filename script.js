@@ -237,6 +237,11 @@ function create_table(alim_receita)
 }
 
 function createNutrientsTable(nutrients) {
+    // Verifica se o objeto 'nutrients' está vazio ou todos os valores são zero
+    if (!nutrients || Object.values(nutrients).every(value => value === 0)) {
+        return; // Se estiver vazio ou todos os valores forem zero, não cria a tabela
+    }
+
     let table = document.getElementById('nutrients-table');
     
     // Se a tabela não existir, crie uma nova
@@ -258,7 +263,6 @@ function createNutrientsTable(nutrients) {
         const unid = document.createElement('th');
         unid.textContent = 'Un. Medida';
         headerRow.appendChild(unid);
-
 
         const headerValue = document.createElement('th');
         headerValue.textContent = 'Valor';
@@ -282,24 +286,27 @@ function createNutrientsTable(nutrients) {
     tbody.innerHTML = ''; // Limpa o conteúdo anterior
     const umedidas = ["kcal", "g", "g", "mg", "g", "g", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "mg", "g", "g", "g"]
     let i = 0;
+    
     // Adiciona uma linha para cada nutriente
     for (const [key, value] of Object.entries(nutrients)) {
         const row = document.createElement('tr');
 
         const cellName = document.createElement('td');
-        cellName.textContent = key;
+        // Capitaliza a primeira letra do nome do nutriente
+        cellName.textContent = key.charAt(0).toUpperCase() + key.slice(1);
         row.appendChild(cellName);
 
         const cellUMedida = document.createElement('td');
         cellUMedida.textContent = umedidas[i];
         row.appendChild(cellUMedida);
-        i = i+1;
+        i++;
 
         const cellValue = document.createElement('td');
-        cellValue.textContent = value;
+        // Formata o valor para duas casas decimais
+        cellValue.textContent = parseFloat(value).toFixed(2);
         row.appendChild(cellValue);
 
         tbody.appendChild(row);
     }
-}
 
+}

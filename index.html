@@ -3,18 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca Ingredientes</title>
+    <title>Calculadora Nutricional</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Busca Ingredientes</h1>
-    <div id="selected-items"></div> 
 
-    <input type="text" id="search" placeholder="Digite algo...">
-    <div id="suggestions" class="dropdown"></div>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Calculadora Nutricional</h1>
+        <!-- Navegação, se necessário -->
+        <!-- <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Receitas</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav> -->
+    </header>
 
-    <div id ="nutrients-table-container"></div>
+    <!-- Conteúdo Principal -->
+    <main>
+         <!-- Seção de Itens Selecionados -->
+         <section>
+            <h2>Ingredientes Selecionados</h2>
+            <div id="selected-items" aria-live="polite"></div>
+        </section>
 
+        <!-- Seção de Busca de Ingredientes -->
+        <section>
+            <h2>Buscar Ingredientes</h2>
+            <p>Digite o nome do ingrediente para procurar e adicionar à sua receita:</p>
+            <input type="text" id="search" placeholder="Digite o nome do ingrediente..." aria-label="Campo de busca para ingredientes">
+            <div id="suggestions" class="dropdown" role="listbox" aria-live="polite"></div>
+        </section>
+    
+        <!-- Seção da Tabela Nutricional -->
+        <section>
+            <div id="nutrients-table-container"></div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="script.js"></script>
 </body>
