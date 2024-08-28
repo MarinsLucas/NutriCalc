@@ -89,14 +89,12 @@ function addSelectedItem(name, ID) {
     removeButton.addEventListener('click', function() {
         selectedItemsContainer.removeChild(itemDiv);
         alim_receita = alim_receita.filter(item => {
-            
             const itemName = item["name"]; // Remove espaços em branco
             const itemID = item["ID"]; // Converte para string se necessário
             const isMatch = itemName.toString() === name.toString() && itemID.toString() === ID.toString();
             return !isMatch; 
         });
-        createNutrientsTable(alim_receita)
-
+        create_table(alim_receita);
     });
     
     
@@ -120,14 +118,12 @@ function addSelectedItem(name, ID) {
     inputField.addEventListener('input', function() {
         const item = alim_receita.find(item => item.ID === ID);
         item.quantidade = parseFloat(this.value);
-        console.log(alim_receita);
         create_table(alim_receita);
     });
 
     dropdown.addEventListener('change', function() {
         const item = alim_receita.find(item => item.ID === ID);
         item.unidade = this.value;
-        console.log(alim_receita);
         create_table(alim_receita);
     });
 }
@@ -222,7 +218,6 @@ function create_table(alim_receita)
         if (alim) {
             for(let i =0;i<2;i++)
             {
-                console.log(alim); 
                 nutrients.energia[i] += parseFloat(alim[0]["kcal"])*r100[i] || 0;
                 nutrients.proteinas[i] += parseFloat(alim[0]["proteina"])*r100[i]  || 0;
                 nutrients.lipidios[i] += parseFloat(alim[0]["lipideos"])*r100[i]  || 0;
@@ -248,15 +243,19 @@ function create_table(alim_receita)
 
     }
 
-    console.log(nutrients);
     createNutrientsTable(nutrients)
     
 }
 
 function createNutrientsTable(nutrients) {
     // Verifica se o objeto 'nutrients' está vazio ou todos os valores são zero
-    if (!nutrients || Object.values(nutrients).every(value => value === 0)) {
-        return; // Se estiver vazio ou todos os valores forem zero, não cria a tabela
+    if (!nutrients || Object.values(nutrients).every(value => value[0] === 0)) {
+        // Remove a tabela existente se todos os valores forem zero
+        const existingTable = document.getElementById('nutrients-table');
+        if (existingTable) {
+            existingTable.remove();
+        }
+        return; // Não cria a tabela
     }
 
     let table = document.getElementById('nutrients-table');
