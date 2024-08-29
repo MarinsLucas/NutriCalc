@@ -74,7 +74,7 @@ function addSelectedItem(name, ID) {
      dropdown.className = 'item-dropdown';
      
      // Adiciona opções ao dropdown
-     const unidmedidas = ["mililitros (ml)", "litros(l)", "xícaras", "colheres de sopa", "colheres de chá", "colheres de sobremesa", "gramas (g)", "quilos (kg)", "miligramas (mg)", "pitadas", "unidades", "fatias"]
+     const unidmedidas = ["mililitros (ml)", "litros(l)", "xícaras", "colheres de sopa", "colheres de chá", "colheres de sobremesa", "gramas (g)", "quilos (kg)", "miligramas (mg)", "pitadas"]
 
      // Popula o dropdown com as opções
      unidmedidas.forEach(medida => {
