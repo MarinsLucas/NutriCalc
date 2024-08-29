@@ -125,6 +125,7 @@ function addSelectedItem(name, ID) {
         const item = alim_receita.find(item => item.ID === ID);
         item.unidade = this.value;
         create_table(alim_receita);
+        console.log(alim_receita)
     });
 }
 
@@ -214,7 +215,7 @@ function create_table(alim_receita)
         
         //Levanta todos os itens compatíveis com a busca
         const alim = alimentos.filter(alimento => alimento.ID === query)
-        
+        console.log(r100)
         if (alim) {
             for(let i =0;i<2;i++)
             {
@@ -242,6 +243,7 @@ function create_table(alim_receita)
         }
 
     }
+    console.log(nutrients)
 
     createNutrientsTable(nutrients)
     
