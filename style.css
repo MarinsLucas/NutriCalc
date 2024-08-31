@@ -27,11 +27,14 @@ main {
 }
 
 /* Estilo de Títulos */
-h1, h2 {
+h1{
+    color: #ffffff;
+    text-align: center;
+}
+h2{
     color: #333;
     text-align: center;
 }
-
 /* Campo de Busca */
 #search {
     width: 100%;
@@ -153,3 +156,37 @@ tr:nth-child(even) {
 tr:hover {
     background-color: #f1f1f1;
 }
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li {
+    margin: 0;
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-list a:hover {
+    background-color: #227501;
+}
+
+

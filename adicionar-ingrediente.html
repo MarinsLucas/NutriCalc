@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Nutricional</title>
+    <link rel="stylesheet" href="styleadi.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Adicionar Ingrediente</h1>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="calculadora.html">Calculadora Nutricional</a></li>
+                <li><a href="receitas.html">Receitas</a></li>
+                <li><a href="adicionar-ingrediente.html">Adicionar Ingrediente</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="content">
+        <h2>Adicionar Ingrediente</h2>
+        <form id="ingredient-form">
+            <div class="form-group">
+                <label for="ingredient-name">Nome do Ingrediente:</label>
+                <input type="text" id="ingredient-name" name="ingredientName" required>
+            </div>
+
+            <h3>Valores Nutricionais (por 100g):</h3>
+            <div class="form-group">
+                <label for="energia">Energia (kcal):</label>
+                <input type="number" id="energia" name="energia" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="proteinas">Proteínas (g):</label>
+                <input type="number" id="proteinas" name="proteinas" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="lipidios">Lipídios (g):</label>
+                <input type="number" id="lipidios" name="lipidios" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="carboidrato">Carboidratos (g):</label>
+                <input type="number" id="carboidrato" name="carboidrato" step="0.01" required>
+            </div>
+            <!-- Adicione outros campos nutricionais conforme necessário -->
+
+            <button type="submit">Adicionar Ingrediente</button>
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="addNutri.js"></script>
+
+</body>
+</html>
