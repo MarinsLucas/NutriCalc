@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Nutricional</title>
+    <title>Adicionar | KiWi</title>
     <link rel="stylesheet" href="styleadi.css">
 </head>
 <body>
 
     <!-- Cabeçalho -->
     <header>
-        <h1>Adicionar Ingrediente</h1>
+        <h1>KiWi</h1>
         <nav>
             <ul class="nav-list">
                 <li><a href="calculadora.html">Calculadora Nutricional</a></li>
@@ -32,25 +32,83 @@
             <h3>Valores Nutricionais (por 100g):</h3>
             <div class="form-group">
                 <label for="energia">Energia (kcal):</label>
-                <input type="number" id="energia" name="energia" step="0.01" required>
+                <input type="number" id="energia" name="energia" step="0.01">
             </div>
             <div class="form-group">
                 <label for="proteinas">Proteínas (g):</label>
-                <input type="number" id="proteinas" name="proteinas" step="0.01" required>
+                <input type="number" id="proteinas" name="proteinas" step="0.01">
             </div>
             <div class="form-group">
                 <label for="lipidios">Lipídios (g):</label>
-                <input type="number" id="lipidios" name="lipidios" step="0.01" required>
+                <input type="number" id="lipidios" name="lipidios" step="0.01">
             </div>
             <div class="form-group">
                 <label for="carboidrato">Carboidratos (g):</label>
-                <input type="number" id="carboidrato" name="carboidrato" step="0.01" required>
+                <input type="number" id="carboidrato" name="carboidrato" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="colesterol">Colesterol (mg):</label>
+                <input type="number" id="colesterol" name="colesterol" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="fibras">Fibras Alimentares (mg):</label>
+                <input type="number" id="Fibras" name="Fibras" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="calcio">Cálcio (mg):</label>
+                <input type="number" id="calcio" name="Cálcio" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="magnesio">Magnésio (mg):</label>
+                <input type="number" id="magnesio" name="Magnésio" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="manganes">Manganes (mg):</label>
+                <input type="number" id="manganes" name="Manganes" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="fosforo">Fósforo (mg):</label>
+                <input type="number" id="fosforo" name="Fósforo" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="ferro">Ferro (mg):</label>
+                <input type="number" id="ferro" name="Ferro" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="sodio">Sódio (mg):</label>
+                <input type="number" id="sodio" name="Sódio" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="potassio">Potássio (mg):</label>
+                <input type="number" id="potassio" name="Potássio" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="cobre">Cobre (mg):</label>
+                <input type="number" id="cobre" name="Cobre" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="Zinco">Zinco (mg):</label>
+                <input type="number" id="zinco" name="Zinco" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="Saturadas">Saturadas (mg):</label>
+                <input type="number" id="Saturadas" name="Saturadas" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="Mono-insaturadas">Mono-insaturadas (mg):</label>
+                <input type="number" id="Mono-insaturadas" name="Mono-insaturadas" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="Poliinsaturadas">Poli-insaturadas (mg):</label>
+                <input type="number" id="Poliinsaturadas" name="Poliinsaturadas" step="0.01">
             </div>
             <!-- Adicione outros campos nutricionais conforme necessário -->
 
-            <button type="submit">Adicionar Ingrediente</button>
+            <!-- <button type="submit">Adicionar Ingrediente</button> -->
+            <input type="button" name="button" value="Adicionar Ingrediente" onClick="addIngredient(this.form)">
         </form>
     </div>
+
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
